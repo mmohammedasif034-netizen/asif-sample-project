@@ -33,18 +33,18 @@ pipeline {
     stage('Run UI (agent)') {
       steps {
         sh '''
-          echo 'Starting UI on agent...'
-          nohup java -jar target/*.jar > app.log 2>&1 &
+          echo 'Starting UI on agent (port 8081)...'
+          nohup java -jar target/*.jar --server.port=8081 > app.log 2>&1 &
           # simple health check (tries a few times)
           for i in 1 2 3 4 5; do
             sleep 2
-            if curl -sS http://localhost:8080/api/status >/dev/null 2>&1; then
-              echo 'UI is responding'
+            if curl -sS http://localhost:8081/api/status >/dev/null 2>&1; then
+              echo 'UI is responding on 8081'
               break
             fi
-            echo 'Waiting for UI...'
+            echo 'Waiting for UI on 8081...'
           done
-          curl -sS http://localhost:8080/api/status || true
+          curl -sS http://localhost:8081/api/status || true
         '''
       }
     }
