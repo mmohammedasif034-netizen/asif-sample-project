@@ -6,43 +6,32 @@ pipeline {
     timeout(time: 30, unit: 'MINUTES')
   }
   stages {
-    stage('Prepare') {
-      steps {
-        script {
-          echo 'Preparing workspace (clean)'
-          deleteDir()
-        }
-      }
-    }
     stage('Checkout') {
       steps {
         git url: 'https://github.com/mmohammedasif034-netizen/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
-            stages {
-              stage('Checkout') {
-                steps {
-                  git url: 'https://github.com/mmohammedasif034-netizen/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
-                }
-              }
+      }
+    }
 
-              stage('Build & Package') {
-                steps {
-                  sh 'mvn -B -DskipTests package'
-                }
-              }
+    stage('Build & Package') {
+      steps {
+        sh 'mvn -B -DskipTests package'
+      }
+    }
 
-              stage('Test') {
-                steps {
-                  sh 'mvn -B test'
-                }
-              }
+    stage('Test') {
+      steps {
+        sh 'mvn -B test'
+      }
+    }
 
-              stage('Archive Artifacts') {
-                steps {
-                  archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
-              }
-            }
-            post {
-              success { echo 'SUCCESS: Pipeline completed' }
-              failure { echo 'FAILURE: Pipeline failed' }
-            }
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+      }
+    }
+  }
+  post {
+    success { echo 'SUCCESS: Pipeline completed' }
+    failure { echo 'FAILURE: Pipeline failed' }
+  }
+}
