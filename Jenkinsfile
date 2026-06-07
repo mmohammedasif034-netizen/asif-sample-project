@@ -7,7 +7,7 @@ pipeline {
   }
   environment {
     DOCKER_REGISTRY = 'docker.io'
-    IMAGE_NAME = "${DOCKER_REGISTRY}/mmohammedasif034/asif-sample-app"
+    IMAGE_NAME = "${DOCKER_REGISTRY}/asiftest123/asif-sample-app"
     IMAGE_TAG = "${BUILD_NUMBER}"
     CONTAINER_NAME = "asif-sample-app"
     CONTAINER_PORT = "8080"
@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git url: 'https://github.com/mmohammedasif034-netizen/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
+        git url: 'https://github.com/mmohammedasif123/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
       }
     }
     stage('Build & Package') {
