@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git url: 'https://github.com/mmohammedasif123/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
+        git url: 'https://github.com/mmohammedasif034-netizen/asif-sample-project.git', branch: 'main', credentialsId: 'github-http-credentials'
       }
     }
     stage('Build & Package') {
